@@ -174,6 +174,7 @@ st.pyplot(plt)
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
 def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
+    # Filtreleme işlemleri
     if genre:
         genre_df = meta[meta['Main Genre'] == genre]
         genre_indices = genre_df.index
@@ -187,15 +188,19 @@ def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=No
         genre_indices = genre_df.index
         user_filtered = user_filtered.loc[genre_indices]
 
+    # Kitap başlıklarının listesini al
     titles = genre_df['Title'].tolist()
+    
+    # En iyi eşleşmeyi bul
     best_match = process.extractOne(book_title.strip(), titles)
     
-    if best_match is None or best_match[1] < 80:
+    if best_match is None or best_match[1] < 80:  # Benzerlik skoru eşiği
         raise ValueError(f"'{book_title}' kitabı veri setinde bulunmuyor.")
 
     matched_title = best_match[0]
-    idx = genre_df[genre_meta['Title'] == matched_title].index[0]
+    idx = genre_df[genre_df['Title'] == matched_title].index[0]
     
+    # Cosine benzerlik hesaplama
     cosine_sim = cosine_similarity(user_filtered)
     sim_scores = list(enumerate(cosine_sim[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
@@ -208,6 +213,7 @@ def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=No
     filtered_books = unique_books.groupby('Sub Genre').first().reset_index()
     
     return filtered_books
+
 
 # Streamlit uygulaması
 st.title('Kitap Tavsiye Sistemi')
