@@ -145,17 +145,17 @@ st.pyplot(fig)
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
-def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
+def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genre=None):
     # Filtreleme işlemleri
-    if genre and genre != 'Tümü':
+    if genre:
         meta = meta[meta['Main Genre'] == genre]
         genre_indices = meta.index
-        user = user[genre_indices]
+        user_pca = features_pca[genre_indices]
         
-    if sub_genre and sub_genre != 'Tümü':
+    if sub_genre:
         meta = meta[meta['Sub Genre'] == sub_genre]
         genre_indices = meta.index
-        user = features_pca[genre_indices]
+        user_pca = user_pca[genre_indices]
 
     # Kısmi eşleşmeyi bul ve en yakın başlığı seç
     titles = meta['Title'].tolist()
@@ -168,17 +168,13 @@ def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=No
     idx = meta[meta['Title'] == matched_title].index[0]
     
     # Cosine benzerlik hesapla
-    cosine_sim = cosine_similarity(user)
+    cosine_sim = cosine_similarity(user_pca)
     sim_scores = list(enumerate(cosine_sim[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
     sim_scores = sim_scores[1:top_n + 1]
     
     book_indices = [i[0] for i in sim_scores]
-    similar_books = df.iloc[book_indices]
-    
-    # İlk kitabı önerilenlerden çıkararak tekrarını engelleme
-    book_indices = [i[0] for i in sim_scores if df.iloc[i[0]]['Title'] != matched_title][:top_n]
-    similar_books = df.iloc[book_indices]
+    similar_books = meta.iloc[book_indices]
     
     # Tekrar eden başlıkları kaldır
     unique_books = similar_books.drop_duplicates(subset='Title', keep='first')
@@ -191,10 +187,9 @@ st.title('Kitap Tavsiye Sistemi')
 # Kullanıcıdan girdi alma
 selected_book = st.text_input("Kitap Başlığını Girin:")
 
-# Ana tür ve alt tür seçimleri için "Tümü" seçeneğini ekleme
-all_option = 'Tümü'
-selected_genre = st.selectbox("Ana Tür Seçin:", options=[all_option] + list(meta['Main Genre'].unique()), index=0)
-selected_sub_genre = st.selectbox("Alt Tür Seçin:", options=[all_option] + list(meta['Sub Genre'].unique()), index=0)
+# Ana tür ve alt tür seçimleri
+selected_genre = st.selectbox("Ana Tür Seçin:", options=list(meta['Main Genre'].unique()) + ['None'])
+selected_sub_genre = st.selectbox("Alt Tür Seçin:", options=list(meta['Sub Genre'].unique()) + ['None'])
 
 # Tavsiye butonu
 if st.button('Kitap Tavsiye Et'):
@@ -205,9 +200,9 @@ if st.button('Kitap Tavsiye Et'):
             recommended_books = find_similar_books(
                 selected_book,
                 meta,
-                user,
-                genre=selected_genre if selected_genre != all_option else None,
-                sub_genre=selected_sub_genre if selected_sub_genre != all_option else None
+                user_pca,
+                genre=None if selected_genre == 'None' else selected_genre,
+                sub_genre=None if selected_sub_genre == 'None' else selected_sub_genre
             )
             st.write("Önerilen Kitaplar:")
             st.dataframe(recommended_books)
@@ -215,6 +210,8 @@ if st.button('Kitap Tavsiye Et'):
             st.error(e)
         except Exception as e:
             st.error(f"Bir hata oluştu: {e}")
+
+
 
 
 
