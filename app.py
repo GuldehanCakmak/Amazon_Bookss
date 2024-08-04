@@ -15,31 +15,6 @@ import requests
 import plotly.express as px
 
 st.set_page_config(layout='wide', page_title='Book Recommender', page_icon='book')
-# Load the model
-
-@st.cache_data
-def get_data():
-    meta = pd.read_csv('Books_df.csv')
-    user = pd.read_csv('Output_csv.csv')
-    return meta, user
-
-meta, user = get_data()
-
- # Verileri işleyin ve ölçekleyin
-scaler = MinMaxScaler()
-user_scaled = scaler.fit_transform(user)
-
-    # NaN değerleri kaldırın
-nan_mask = np.isnan(user_scaled).any(axis=1)
-user_scaled = user_scaled[~nan_mask]
-
-    # K-Means kümeleme
-kmeans = KMeans(n_clusters=4, init='k-means++', max_iter=300, n_init=10, random_state=0)
-cluster_labels = kmeans.fit_predict(user_scaled)
-
-    # PCA ile boyut indirgeme
-pca = PCA(n_components=2)
-user_pca = pca.fit_transform(user_scaled)
 
 # home tab
 home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
@@ -64,6 +39,30 @@ col3.markdown("*Sesli Kitap Önerileri: Sesli kitapları seven arkadaşlarım i�
 
 # graph tab
 
+# Load the model
+@st.cache_data
+def get_data():
+    meta = pd.read_csv('Books_df.csv')
+    user = pd.read_csv('Output_csv.csv')
+    return meta, user
+
+meta, user = get_data()
+
+ # Verileri işleyin ve ölçekleyin
+scaler = MinMaxScaler()
+user_scaled = scaler.fit_transform(user)
+
+    # NaN değerleri kaldırın
+nan_mask = np.isnan(user_scaled).any(axis=1)
+user_scaled = user_scaled[~nan_mask]
+
+    # K-Means kümeleme
+kmeans = KMeans(n_clusters=4, init='k-means++', max_iter=300, n_init=10, random_state=0)
+cluster_labels = kmeans.fit_predict(user_scaled)
+
+    # PCA ile boyut indirgeme
+pca = PCA(n_components=2)
+user_pca = pca.fit_transform(user_scaled)
 
 # Streamlit uygulaması
 st.title('Farklı Ana Türlere Göre Kitapların Dağılımı')
