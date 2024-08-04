@@ -81,17 +81,22 @@ plt.ylabel('Main Genre')
 st.pyplot(plt)
 
 
-
+# Sütun adlarını kontrol etme
+st.write(df.head())
 
 # Set a minimum threshold for the number of ratings to be considered for 'Best Rated Authors'
 min_ratings_threshold = 1000
 
 # Group by 'Author' and calculate mean rating, mean price, and total number of ratings
-author_stats = meta.groupby('Author').agg({
-    'Rating': 'mean',
-    'Price': 'mean',
-    'No. of People rated': ['sum', 'mean']
-}).reset_index()
+try:
+    author_stats = df.groupby('Author').agg({
+        'Rating': 'mean',
+        'Price': 'mean',
+        'No. of People rated': ['sum', 'mean']
+    }).reset_index()
+except KeyError as e:
+    st.error(f"KeyError: {e}")
+    st.stop()
 
 # Flatten the multi-level column names
 author_stats.columns = ['Author', 'Avg Rating', 'Avg Price', 'Total Ratings', 'Avg Ratings per Book']
@@ -133,7 +138,6 @@ plt.tight_layout()
 
 # Streamlit'te grafiği gösterme
 st.pyplot(fig)
-
 
 
 # recommendation_tab
