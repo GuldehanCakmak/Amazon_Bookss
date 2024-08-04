@@ -87,7 +87,7 @@ st.pyplot(plt)
 min_ratings_threshold = 1000
 
 # Group by 'Author' and calculate mean rating, mean price, and total number of ratings
-author_stats = meta.groupby('Author').agg({
+author_stats = user.groupby('Author').agg({
     'Rating': 'mean',
     'Price': 'mean',
     'No. of People rated': ['sum', 'mean']
