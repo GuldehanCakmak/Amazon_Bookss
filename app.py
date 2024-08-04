@@ -208,12 +208,12 @@ if st.button('Kitap Tavsiye Et'):
                 st.write("Maalesef öneri bulunamadı.")
             else:
                 st.write("Önerilen Kitaplar:")
-                st.dataframe(recommended_books)
+                for index, row in recommended_books.iterrows():
+                    st.image(row['URLs'], caption=row['Title'], use_column_width=True)
         except ValueError as e:
             st.error(e)
         except Exception as e:
             st.error(f"Bir hata oluştu: {e}")
-
 
 
 
