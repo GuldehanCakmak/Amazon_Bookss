@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
+!pip install yellowbrick
 from yellowbrick.cluster import KElbowVisualizer
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
@@ -13,6 +14,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from fuzzywuzzy import process
 import requests
 import plotly.express as px
+!pip install yellowbrick
+
 
 def get_data():
     meta = pd.read_csv('data/streamlit_Books_df.csv')
