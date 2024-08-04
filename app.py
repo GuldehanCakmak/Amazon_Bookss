@@ -43,6 +43,22 @@ cluster_labels = kmeans.fit_predict(user_scaled)
 pca = PCA(n_components=2)
 user_pca = pca.fit_transform(user_scaled)
 
+# home tab
+
+col1, col2, col3 = home_tab.columns([1,1,1])
+col1.image("https://www.tumblr.com/resimlerin-dili/690846266376241152")
+col1.subheader("Nedir?")
+col1.markdown('*Film dünyası geniş bir deniz gibi; her türden, her dilden ve her duygudan eserlerle dolu. Bizim film öneri sistemi, size tam da bu denizde yol gösterecek. Sizin ilgi alanlarınıza, beğenilerinize ve tercihlerinize göre özenle seçilmiş filmleri öneriyoruz. Üstelik, algoritma her geçen gün sizinle daha iyi anlaşacak ve beğenilerinizi daha doğru tahmin edecek şekilde gelişiyor.*')
+col1.audio("http://soundfxcenter.com/movies/star-wars/8d82b5_Star_Wars_The_Imperial_March_Theme_Song.mp3")
+
+col2.subheader("Nasıl çalışır?")
+col2.markdown("Sistemimiz, karmaşık bir yapay zeka algoritmasıyla çalışır. İlk önce sizden bazı tercihlerinizi ve beğenilerinizi belirlememizi isteriz. Sonra, bu bilgileri kullanarak, benzer kullanıcıların beğenilerine göre filmleri öneririz. Ayrıca, izlediğiniz filmlere göre sistemi güncelleyerek size daha kişiselleştirilmiş öneriler sunarız. Böylece her ziyaretinizde yeni ve ilginizi çekebilecek filmler keşfedebilirsiniz.")
+col2.image("https://media.vanityfair.com/photos/5e2871cdb8e7e70008021290/master/pass/M8DBESU_EC004.jpg")
+
+col3.image("https://media3.giphy.com/media/spu2k869TI1aw/giphy.gif?cid=6c09b952gtje6mb1utxznqgjzphn2afpoh1105w4czl89oxw&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g")
+col3.subheader("Ne işe yarar?")
+col3.markdown("Film öneri sistemi ile maceraya hazır mısınız? Sizi keşfetmek istediğiniz türlerde, heyecan verici ve unutulmaz filmlerle buluşturmak için buradayız. Sadece birkaç adımda, film dünyasının en iyilerini keşfetmek ve favorilerinizi bulmak mümkün olacak. Üstelik, sistemimiz sürekli olarak güncellenir ve sizin tercihlerinize göre daha iyi hale gelir. Yeni filmler keşfetmek ve sinema deneyiminizi zenginleştirmek için hemen şimdi başlayın!")
+
 
 # recommendation_tab
 def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
