@@ -146,6 +146,7 @@ st.pyplot(fig)
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
 
+
 def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genre=None):
     # Filtreleme işlemleri
     if genre and genre != 'None':
@@ -188,15 +189,30 @@ st.title('Kitap Tavsiye Sistemi')
 # Kullanıcıdan girdi alma
 selected_book = st.text_input("Kitap Başlığını Girin:")
 
+# Dinamik tür güncellemeleri
+if 'selected_book' in st.session_state:
+    # Seçili kitaba göre türlerin güncellenmesi
+    filtered_meta = meta[meta['Title'] == st.session_state.selected_book]
+    if not filtered_meta.empty:
+        unique_genres = list(filtered_meta['Main Genre'].unique())
+        unique_sub_genres = list(filtered_meta['Sub Genre'].unique())
+    else:
+        unique_genres = list(meta['Main Genre'].unique())
+        unique_sub_genres = list(meta['Sub Genre'].unique())
+else:
+    unique_genres = list(meta['Main Genre'].unique())
+    unique_sub_genres = list(meta['Sub Genre'].unique())
+
 # Ana tür ve alt tür seçimleri
-selected_genre = st.selectbox("Ana Tür Seçin:", options=list(meta['Main Genre'].unique()) + ['None'])
-selected_sub_genre = st.selectbox("Alt Tür Seçin:", options=list(meta['Sub Genre'].unique()) + ['None'])
+selected_genre = st.selectbox("Ana Tür Seçin:", options=unique_genres + ['None'])
+selected_sub_genre = st.selectbox("Alt Tür Seçin:", options=unique_sub_genres + ['None'])
 
 # Tavsiye butonu
 if st.button('Kitap Tavsiye Et'):
     if not selected_book:
         st.warning("Lütfen bir kitap başlığı girin.")
     else:
+        st.session_state.selected_book = selected_book  # Kitap başlığını session state'e kaydet
         try:
             recommended_books = find_similar_books(
                 selected_book,
@@ -218,6 +234,5 @@ if st.button('Kitap Tavsiye Et'):
             st.error(e)
         except Exception as e:
             st.error(f"Bir hata oluştu: {e}")
-
 
 
