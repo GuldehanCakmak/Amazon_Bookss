@@ -52,12 +52,12 @@ col1.markdown("*Merhaba sevgili kitap severler! Ben bir kitap kurdu olarak her z
 col1.audio("http://soundfxcenter.com/movies/star-wars/8d82b5_Star_Wars_The_Imperial_March_Theme_Song.mp3")
 
 col2.subheader("Nasıl çalışır?")
-col2.markdown("Sistemimiz, karmaşık bir yapay zeka algoritmasıyla çalışır. İlk önce sizden bazı tercihlerinizi ve beğenilerinizi belirlememizi isteriz. Sonra, bu bilgileri kullanarak, benzer kullanıcıların beğenilerine göre filmleri öneririz. Ayrıca, izlediğiniz filmlere göre sistemi güncelleyerek size daha kişiselleştirilmiş öneriler sunarız. Böylece her ziyaretinizde yeni ve ilginizi çekebilecek filmler keşfedebilirsiniz.")
+col2.markdown("Verileri analiz etmeye başladığımda, bazı kitapların binlerce kez değerlendirildiğini ve yüksek puanlar aldığını fark ettim. Diğer kitaplar ise daha az ilgi görmüştü ama belirli bir okuyucu kitlesi tarafından çok beğenilmişti. Bu bilgiler ışığında, arkadaşlarımın okuma alışkanlıklarına göre özelleştirilmiş öneriler sunabileceğimi anladım.")
 col2.image("https://media.vanityfair.com/photos/5e2871cdb8e7e70008021290/master/pass/M8DBESU_EC004.jpg")
 
 col3.image("https://media3.giphy.com/media/spu2k869TI1aw/giphy.gif?cid=6c09b952gtje6mb1utxznqgjzphn2afpoh1105w4czl89oxw&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g")
 col3.subheader("Ne işe yarar?")
-col3.markdown("Film öneri sistemi ile maceraya hazır mısınız? Sizi keşfetmek istediğiniz türlerde, heyecan verici ve unutulmaz filmlerle buluşturmak için buradayız. Sadece birkaç adımda, film dünyasının en iyilerini keşfetmek ve favorilerinizi bulmak mümkün olacak. Üstelik, sistemimiz sürekli olarak güncellenir ve sizin tercihlerinize göre daha iyi hale gelir. Yeni filmler keşfetmek ve sinema deneyiminizi zenginleştirmek için hemen şimdi başlayın!")
+col3.markdown("Film öneri sistemi ile maceraya hazır mısınız? Sizi keşfetmek istediğiniz türlerde, heyecan verici ve unutulmaz filmlerle buluşturmak için buradayız. Sadece birkaç adımda, film dünyasının en iyilerini keşfetmek ve favorilerinizi bulmak mümkün olacak. Üstelik, sistemimiz sürekli olarak güncellenir ve sizin tercihlerinize göre daha iyi hale gelir. Yeni filmler keşfetmek ve sinema deneyiminizi zenginleştirmek için hemen şimdi başlayın! Verileri analiz ettikten ve bazı çıkarımlarda bulunduktan sonra, arkadaşlarımın okumaktan keyif alabileceği kitapları belirlemeye başladım.")
 
 
 # recommendation_tab
