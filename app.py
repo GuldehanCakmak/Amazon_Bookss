@@ -46,7 +46,7 @@ user_pca = pca.fit_transform(user_scaled)
 # home tab
 
 col1, col2, col3 = home_tab.columns([1,1,1])
-col1.image("https://www.tumblr.com/resimlerin-dili/690846266376241152")
+col1.image("https://https://depositphotos.com/tr/photo/a-cup-of-hot-coffee-flowers-and-book-57443105.html")
 col1.subheader("Nedir?")
 col1.markdown('*Film dünyası geniş bir deniz gibi; her türden, her dilden ve her duygudan eserlerle dolu. Bizim film öneri sistemi, size tam da bu denizde yol gösterecek. Sizin ilgi alanlarınıza, beğenilerinize ve tercihlerinize göre özenle seçilmiş filmleri öneriyoruz. Üstelik, algoritma her geçen gün sizinle daha iyi anlaşacak ve beğenilerinizi daha doğru tahmin edecek şekilde gelişiyor.*')
 col1.audio("http://soundfxcenter.com/movies/star-wars/8d82b5_Star_Wars_The_Imperial_March_Theme_Song.mp3")
