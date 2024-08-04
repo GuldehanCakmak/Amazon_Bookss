@@ -28,7 +28,6 @@ meta, user = get_data()
 home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
 
  # Verileri işleyin ve ölçekleyin
-user = meta[['Price', 'Rating', 'No. of People Rated', 'Main Genre']]  # Özellik sütunlarını belirleyin
 scaler = MinMaxScaler()
 user_scaled = scaler.fit_transform(features)
 
