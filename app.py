@@ -15,7 +15,9 @@ import requests
 import plotly.express as px
 
 
+# Load the model
 
+@st.cache_data
 def get_data():
     meta = pd.read_csv('Books_df.csv')
     user = pd.read_csv('Output_csv.csv')
