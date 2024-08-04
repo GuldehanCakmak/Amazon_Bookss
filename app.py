@@ -81,8 +81,8 @@ plt.ylabel('Main Genre')
 st.pyplot(plt)
 
 
-# Sütun adlarını kontrol etme
-st.write(meta.head())
+# Yazardaki boşlukları Unknown ile doldur
+meta['Author'].fillna('Unknown', inplace=True)
 
 # Set a minimum threshold for the number of ratings to be considered for 'Best Rated Authors'
 min_ratings_threshold = 1000
