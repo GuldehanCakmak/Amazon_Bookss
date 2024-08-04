@@ -61,9 +61,9 @@ col3.markdown("*Hava Durumu ile Kitap Önerisi: Hava durumu verilerini alarak he
 Sesli Kitap Önerileri: Sesli kitapları seven arkadaşlarım için de öneriler sundum. Yürüyüş yaparken, araba kullanırken veya rahatlamak istediğiniz anlarda dinleyebileceğiniz en iyi sesli kitapları seçtim.
 Sonuçlar gerçekten de heyecan vericiydi! Arkadaşlarıma kişiselleştirilmiş kitap önerilerinde bulundum. Onlara şunları söyledim:
 
-"Ahmet, sen polisiye romanları çok seviyorsun. İşte bu yağmurlu gün için mükemmel bir öneri: 'Sherlock Holmes' serisi. Eminim ki seni çok heyecanlandıracak'!
-"Ayşe, senin için harika bir romantik kitap buldum. Hava güneşli ve senin de keyfin yerinde. 'Pride and Prejudice' tam sana göre!"
-"Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap: 'Sapiens: İnsanlığın Kısa Tarihi'. Eminim çok şey öğreneceksin.*")
+ Ahmet, sen polisiye romanları çok seviyorsun. İşte bu yağmurlu gün için mükemmel bir öneri:  Sherlock Holmes serisi. Eminim ki seni çok heyecanlandıracak!
+ Ayşe, senin için harika bir romantik kitap buldum. Hava güneşli ve senin de keyfin yerinde.  Pride and Prejudice tam sana göre!"
+ Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:  Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
 
 
 # recommendation_tab
