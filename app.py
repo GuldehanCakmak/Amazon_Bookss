@@ -66,13 +66,19 @@ col3.markdown("*Hava Durumu ile Kitap Önerisi: Hava durumu verilerini alarak he
 
 # graph tab
 
-# Farklı Ana Türlere Göre Kitapların Dağılımı
+
+# Streamlit uygulaması
+st.title('Farklı Ana Türlere Göre Kitapların Dağılımı')
+
+# Matplotlib grafiği oluşturma
 plt.figure(figsize=(12, 8), dpi=200)
 meta['Main Genre'].value_counts().plot(kind='barh')
 plt.title('Distribution of Books Across Main Genres')
 plt.xlabel('Number of Books')
 plt.ylabel('Main Genre')
-plt.show()
+
+# Streamlit'te grafiği gösterme
+st.pyplot(plt)
 
 
 # recommendation_tab
