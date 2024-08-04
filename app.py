@@ -168,7 +168,8 @@ plt.title("Top Rated Books by Genre")
 plt.xlabel("Rating")
 plt.ylabel("Book Title")
 st.pyplot(plt)
-
+# Streamlit'te grafiği gösterme
+st.pyplot(fig)
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
