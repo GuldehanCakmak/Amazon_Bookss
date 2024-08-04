@@ -104,25 +104,25 @@ st.title('Kitap Tavsiye Sistemi')
 # Kitap veri setini yükleyin
 uploaded_file = st.file_uploader("CSV dosyasını yükleyin", type="csv")
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+    meta = pd.read_csv(uploaded_file)
     st.write("Veri seti başarıyla yüklendi.")
     
     # Verileri işleyin ve ölçekleyin
-    features = df[['Price', 'Rating', 'No. of People Rated', 'Main Genre']]  # Özellik sütunlarını belirleyin
+    user = meta[['Price', 'Rating', 'No. of People Rated', 'Main Genre']]  # Özellik sütunlarını belirleyin
     scaler = MinMaxScaler()
-    features_scaled = scaler.fit_transform(features)
+    user_scaled = scaler.fit_transform(features)
 
     # NaN değerleri kaldırın
-    nan_mask = np.isnan(features_scaled).any(axis=1)
-    features_scaled = features_scaled[~nan_mask]
+    nan_mask = np.isnan(user_scaled).any(axis=1)
+    user_scaled = features_scaled[~nan_mask]
 
     # K-Means kümeleme
     kmeans = KMeans(n_clusters=4, init='k-means++', max_iter=300, n_init=10, random_state=0)
-    cluster_labels = kmeans.fit_predict(features_scaled)
+    cluster_labels = kmeans.fit_predict(user_scaled)
 
     # PCA ile boyut indirgeme
     pca = PCA(n_components=2)
-    features_pca = pca.fit_transform(features_scaled)
+    user_pca = pca.fit_transform(user_scaled)
 
     # Kitap tavsiyesi
     book_title = st.text_input('Kitap adı girin:')
