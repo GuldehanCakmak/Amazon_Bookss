@@ -147,12 +147,12 @@ st.pyplot(fig)
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
 def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genre=None):
     # Filtreleme işlemleri
-    if genre:
+    if genre and genre != 'None':
         meta = meta[meta['Main Genre'] == genre]
         genre_indices = meta.index
         user_pca = user_pca[genre_indices]
         
-    if sub_genre:
+    if sub_genre and sub_genre != 'None':
         meta = meta[meta['Sub Genre'] == sub_genre]
         genre_indices = meta.index
         user_pca = user_pca[genre_indices]
@@ -204,8 +204,11 @@ if st.button('Kitap Tavsiye Et'):
                 genre=None if selected_genre == 'None' else selected_genre,
                 sub_genre=None if selected_sub_genre == 'None' else selected_sub_genre
             )
-            st.write("Önerilen Kitaplar:")
-            st.dataframe(recommended_books)
+            if recommended_books.empty:
+                st.write("Maalesef öneri bulunamadı.")
+            else:
+                st.write("Önerilen Kitaplar:")
+                st.dataframe(recommended_books)
         except ValueError as e:
             st.error(e)
         except Exception as e:
