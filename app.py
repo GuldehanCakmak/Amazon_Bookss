@@ -154,11 +154,11 @@ def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=No
         
     if sub_genre and sub_genre != 'Tümü':
         meta = meta[meta['Sub Genre'] == sub_genre]
-        genre_indices = df.index
+        genre_indices = meta.index
         user = features_pca[genre_indices]
 
     # Kısmi eşleşmeyi bul ve en yakın başlığı seç
-    titles = df['Title'].tolist()
+    titles = meta['Title'].tolist()
     best_match = process.extractOne(book_title.strip(), titles)
     
     if best_match is None or best_match[1] < 80:  # Benzerlik skoru eşiği
