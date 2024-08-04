@@ -150,7 +150,7 @@ def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genr
     if genre:
         meta = meta[meta['Main Genre'] == genre]
         genre_indices = meta.index
-        user_pca = features_pca[genre_indices]
+        user_pca = user_pca[genre_indices]
         
     if sub_genre:
         meta = meta[meta['Sub Genre'] == sub_genre]
