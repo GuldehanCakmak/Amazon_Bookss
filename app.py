@@ -80,6 +80,9 @@ plt.ylabel('Main Genre')
 # Streamlit'te grafiği gösterme
 st.pyplot(plt)
 
+
+
+
 # Set a minimum threshold for the number of ratings to be considered for 'Best Rated Authors'
 min_ratings_threshold = 1000
 
