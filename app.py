@@ -29,7 +29,7 @@ home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Ön
 
  # Verileri işleyin ve ölçekleyin
 scaler = MinMaxScaler()
-user_scaled = scaler.fit_transform(features)
+user_scaled = scaler.fit_transform(user)
 
     # NaN değerleri kaldırın
 nan_mask = np.isnan(user_scaled).any(axis=1)
