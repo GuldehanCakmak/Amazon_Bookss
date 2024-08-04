@@ -145,6 +145,7 @@ st.pyplot(fig)
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
+
 def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genre=None):
     # Filtreleme işlemleri
     if genre and genre != 'None':
@@ -209,12 +210,14 @@ if st.button('Kitap Tavsiye Et'):
             else:
                 st.write("Önerilen Kitaplar:")
                 for index, row in recommended_books.iterrows():
-                    st.image(row['URLs'], caption=row['Title'], use_column_width=True)
+                    try:
+                        st.image(row['URLs'], caption=row['Title'], use_column_width=True)
+                    except Exception as e:
+                        st.warning(f"Resim yüklenirken bir hata oluştu: {e}")
         except ValueError as e:
             st.error(e)
         except Exception as e:
             st.error(f"Bir hata oluştu: {e}")
-
 
 
 
