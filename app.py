@@ -192,8 +192,6 @@ st.title('Kitap Tavsiye Sistemi')
 
 # Kullanıcıdan girdi alma
 selected_book = st.text_input("Kitap Başlığını Girin:")
-selected_genre = st.selectbox("Ana Tür Seçin:", options=meta['Main Genre'].unique())
-selected_sub_genre = st.selectbox("Alt Tür Seçin:", options=meta['Sub Genre'].unique(), index=0)
 
 # Tavsiye butonu
 if st.button('Kitap Tavsiye Et'):
