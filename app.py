@@ -147,51 +147,54 @@ st.pyplot(fig)
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
 def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
     # Filtreleme işlemleri
-    if genre:
-        genre_df = meta[meta['Main Genre'] == genre]
-        genre_indices = genre_df.index
-        user_filtered = user.loc[genre_indices]
-    else:
-        genre_df = meta
-        user_filtered = user
+    if genre and genre != 'Tümü':
+        meta = meta[meta['Main Genre'] == genre]
+        genre_indices = df.index
+        user = user[genre_indices]
+        
+    if sub_genre and sub_genre != 'Tümü':
+        meta = meta[meta['Sub Genre'] == sub_genre]
+        genre_indices = df.index
+        user = features_pca[genre_indices]
 
-    if sub_genre:
-        genre_df = genre_df[genre_df['Sub Genre'] == sub_genre]
-        genre_indices = genre_df.index
-        user_filtered = user_filtered.loc[genre_indices]
-
-    # Kitap başlıklarının listesini al
-    titles = genre_df['Title'].tolist()
-    
-    # En iyi eşleşmeyi bul
+    # Kısmi eşleşmeyi bul ve en yakın başlığı seç
+    titles = df['Title'].tolist()
     best_match = process.extractOne(book_title.strip(), titles)
     
     if best_match is None or best_match[1] < 80:  # Benzerlik skoru eşiği
         raise ValueError(f"'{book_title}' kitabı veri setinde bulunmuyor.")
 
     matched_title = best_match[0]
-    idx = genre_df[genre_df['Title'] == matched_title].index[0]
+    idx = meta[meta['Title'] == matched_title].index[0]
     
-    # Cosine benzerlik hesaplama
-    cosine_sim = cosine_similarity(user_filtered)
+    # Cosine benzerlik hesapla
+    cosine_sim = cosine_similarity(user)
     sim_scores = list(enumerate(cosine_sim[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
     sim_scores = sim_scores[1:top_n + 1]
     
     book_indices = [i[0] for i in sim_scores]
-    similar_books = genre_df.iloc[book_indices]
+    similar_books = df.iloc[book_indices]
     
+    # İlk kitabı önerilenlerden çıkararak tekrarını engelleme
+    book_indices = [i[0] for i in sim_scores if df.iloc[i[0]]['Title'] != matched_title][:top_n]
+    similar_books = df.iloc[book_indices]
+    
+    # Tekrar eden başlıkları kaldır
     unique_books = similar_books.drop_duplicates(subset='Title', keep='first')
-    filtered_books = unique_books.groupby('Sub Genre').first().reset_index()
     
-    return filtered_books
-
+    return unique_books
 
 # Streamlit uygulaması
 st.title('Kitap Tavsiye Sistemi')
 
 # Kullanıcıdan girdi alma
 selected_book = st.text_input("Kitap Başlığını Girin:")
+
+# Ana tür ve alt tür seçimleri için "Tümü" seçeneğini ekleme
+all_option = 'Tümü'
+selected_genre = st.selectbox("Ana Tür Seçin:", options=[all_option] + list(meta['Main Genre'].unique()), index=0)
+selected_sub_genre = st.selectbox("Alt Tür Seçin:", options=[all_option] + list(meta['Sub Genre'].unique()), index=0)
 
 # Tavsiye butonu
 if st.button('Kitap Tavsiye Et'):
@@ -203,14 +206,15 @@ if st.button('Kitap Tavsiye Et'):
                 selected_book,
                 meta,
                 user,
-                genre=selected_genre,
-                sub_genre=selected_sub_genre
+                genre=selected_genre if selected_genre != all_option else None,
+                sub_genre=selected_sub_genre if selected_sub_genre != all_option else None
             )
             st.write("Önerilen Kitaplar:")
             st.dataframe(recommended_books)
         except ValueError as e:
             st.error(e)
-
+        except Exception as e:
+            st.error(f"Bir hata oluştu: {e}")
 
 
 
