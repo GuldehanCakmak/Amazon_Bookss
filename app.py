@@ -83,6 +83,9 @@ st.pyplot(plt)
 
 # Yazardaki boşlukları Unknown ile doldur
 meta['Author'].fillna('Unknown', inplace=True)
+meta = meta[(meta['Rating'] != 0) & (meta['Price'] != 0)]
+# Price daki para birimi işaretini kaldır
+meta['Price'] = meta['Price'].str.replace('₹', '').str.replace(',', '').astype(float)
 
 # Set a minimum threshold for the number of ratings to be considered for 'Best Rated Authors'
 min_ratings_threshold = 1000
