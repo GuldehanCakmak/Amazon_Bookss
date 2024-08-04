@@ -14,7 +14,7 @@ from fuzzywuzzy import process
 import requests
 import plotly.express as px
 
-
+st.set_page_config(layout='wide', page_title='Movie Recommender', page_icon='🎥')
 # Load the model
 
 @st.cache_data
@@ -24,6 +24,8 @@ def get_data():
     return meta, user
 
 meta, user = get_data()
+
+home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
 
 
 
