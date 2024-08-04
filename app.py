@@ -17,8 +17,8 @@ import plotly.express as px
 
 
 def get_data():
-    meta = pd.read_csv('data/streamlit_Books_df.csv')
-    user = pd.read_csv('data/streamlit_Output_csv.csv')
+    meta = pd.read_csv('main/Books_df.csv')
+    user = pd.read_csv('main/Output_csv.csv')
     return meta, user
 
 meta, user = get_data()
