@@ -142,6 +142,13 @@ plt.tight_layout()
 # Streamlit'te grafiği gösterme
 st.pyplot(fig)
 
+graph_tab.plotly_chart(fig)
+
+genres = ["Arts, Film & Photography", "Biographies, Diaries & True Accounts", "Children's Books", "Crime, Thriller & Mystery", "Fantasy, Horror & Science Fiction"]
+selected_genre = graph_tab.selectbox(label="Tür seçiniz", options=genres)
+graph_tab.markdown(f"Seçilen tür: **{selected_genre}**")
+
+graph_tab.dataframe(meta.loc[meta.genres_x.str.contains(selected_genre), ['Title', 'Main Genre', 'Rating', 'Price']].sort_values(by="vote_average", ascending=False).head(10))
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
