@@ -128,29 +128,7 @@ if uploaded_file is not None:
     pca = PCA(n_components=2)
     user_pca = pca.fit_transform(user_scaled)
 
-    # Kitap tavsiyesi
-    book_title = st.text_input('Kitap adı girin:')
-    if book_title:
-        similar_books = find_similar_books(book_title, df, features_pca)
-        if not similar_books.empty:
-            st.write(f"'{book_title}' kitabını alan kullanıcıya önerilen kitaplar:")
-            st.write(similar_books[['Title', 'Author', 'Main Genre', 'Sub Genre']])
 
-# Hava durumuna göre kitap önerisi
-api_key = st.text_input('OpenWeatherMap API anahtarınızı girin:')
-city = st.text_input('Şehir adı girin:')
-if api_key and city:
-    weather_data = get_weather(api_key, city)
-    if 'weather' in weather_data:
-        weather_condition = weather_data['weather'][0]['main']
-        book_format = st.selectbox('Kitap formatını seçin:', ['text', 'audio'])
-        book_recommendations = suggest_books_by_weather(weather_condition, book_format)
-        st.write(f"Hava durumu: {weather_condition}")
-        st.write("Önerilen Kitaplar:")
-        for book in book_recommendations:
-            st.write(f"- {book}")
-    else:
-        st.write("Hava durumu bilgisi alınamadı. API yanıtını kontrol edin.")
 
 st.title(':blue[Miuul] Movie :blue[Recommender] 🎥', )
 
@@ -183,18 +161,27 @@ col3.markdown("Film öneri sistemi ile maceraya hazır mısınız? Sizi keşfetm
 # recommendation_tab
 
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
-selected_movie = r_col2.selectbox("Kitap seçiniz.", options=meta.title.unique())
-recommendations = user.corrwith(user[selected_movie]).sort_values(ascending=False)[1:6]
+    # Kitap tavsiyesi
+    book_title = st.text_input('Kitap adı girin:')
+    if book_title:
+        similar_books = find_similar_books(book_title, df, features_pca)
+        if not similar_books.empty:
+            st.write(f"'{book_title}' kitabını alan kullanıcıya önerilen kitaplar:")
+            st.write(similar_books[['Title', 'Author', 'Main Genre', 'Sub Genre']])
 
-movie_one, movie_two, movie_three, movie_four, movie_five = recommendation_tab.columns(5)
-
-recommend_button = r_col2.button("Film Öner")
-
-if recommend_button:
-        for index, movie_col in enumerate([movie_one, movie_two, movie_three, movie_four, movie_five]):
-            movie = meta.loc[meta.title == recommendations.index[index], :]
-            movie_col.subheader(f"**{movie.title.values[0]}**")
-            movie_col.image(get_image_from_imdb(movie.imdb_id.values[0]))
-            movie_col.markdown(f"**{movie.vote_average.values[0]}**")
-
+# Hava durumuna göre kitap önerisi
+api_key = st.text_input('OpenWeatherMap API anahtarınızı girin:')
+city = st.text_input('Şehir adı girin:')
+if api_key and city:
+    weather_data = get_weather(api_key, city)
+    if 'weather' in weather_data:
+        weather_condition = weather_data['weather'][0]['main']
+        book_format = st.selectbox('Kitap formatını seçin:', ['text', 'audio'])
+        book_recommendations = suggest_books_by_weather(weather_condition, book_format)
+        st.write(f"Hava durumu: {weather_condition}")
+        st.write("Önerilen Kitaplar:")
+        for book in book_recommendations:
+            st.write(f"- {book}")
+    else:
+        st.write("Hava durumu bilgisi alınamadı. API yanıtını kontrol edin.")
 
