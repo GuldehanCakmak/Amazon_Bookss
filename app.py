@@ -143,34 +143,6 @@ plt.tight_layout()
 st.pyplot(fig)
 
 
-#  Bu grafikleri gostermiyor...........
-significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
-filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
-
-# Adım 2: Her ana türdeki en yüksek puanlı kitabı belirleyin
-top_books_per_genre = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
-
-# Görüntüleme için ilgili sütunların seçilmesi
-top_books_display = top_books_per_genre[['Title', 'Author', 'Main Genre', 'Rating', 'No. of People rated']]
-
-# Türlere göre sıralama
-top_books_display_sorted = top_books_display.sort_values(by='Main Genre')
-
-# Streamlit arayüzü
-st.title("Top Rated Books by Genre")
-st.dataframe(top_books_display_sorted)
-
-# Grafik çizme
-plt.figure(figsize=(12, 8))
-sns.barplot(data=top_books_display_sorted, x='Rating', y='Title', hue='Main Genre', dodge=False)
-plt.title("Top Rated Books by Genre")
-plt.xlabel("Rating")
-plt.ylabel("Book Title")
-
-# Grafiği Streamlit'te gösterme
-st.pyplot(plt)
-
-
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
 def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
