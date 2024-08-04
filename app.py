@@ -38,6 +38,7 @@ col3.markdown("*Sesli Kitap Önerileri: Sesli kitapları seven arkadaşlarım i�
 ("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:   Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
 
 # graph tab
+col1 = graph_tab.columns([1])
 
 # Load the model
 @st.cache_data
