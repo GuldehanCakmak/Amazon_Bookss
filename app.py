@@ -142,6 +142,9 @@ plt.tight_layout()
 # Streamlit'te grafiği gösterme
 st.pyplot(fig)
 
+
+
+# Adım 1: Ratingi yüksek olanlar
 significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
 filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
 
@@ -165,6 +168,7 @@ plt.title("Top Rated Books by Genre")
 plt.xlabel("Rating")
 plt.ylabel("Book Title")
 st.pyplot(plt)
+
 
 # recommendation_tab
 def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
