@@ -143,8 +143,7 @@ plt.tight_layout()
 st.pyplot(fig)
 
 
-
-# Adım 1: Ratingi yüksek olanlar
+#  Bu grafikleri gostermiyor...........
 significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
 filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
 
@@ -167,9 +166,10 @@ sns.barplot(data=top_books_display_sorted, x='Rating', y='Title', hue='Main Genr
 plt.title("Top Rated Books by Genre")
 plt.xlabel("Rating")
 plt.ylabel("Book Title")
+
+# Grafiği Streamlit'te gösterme
 st.pyplot(plt)
-# Streamlit'te grafiği gösterme
-st.pyplot(fig)
+
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
