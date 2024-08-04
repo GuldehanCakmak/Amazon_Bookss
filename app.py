@@ -82,7 +82,7 @@ st.pyplot(plt)
 
 
 # Sütun adlarını kontrol etme
-st.write(df.head())
+st.write(meta.head())
 
 # Set a minimum threshold for the number of ratings to be considered for 'Best Rated Authors'
 min_ratings_threshold = 1000
