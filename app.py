@@ -65,20 +65,6 @@ cluster_labels = kmeans.fit_predict(user_scaled)
 pca = PCA(n_components=2)
 user_pca = pca.fit_transform(user_scaled)
 
-# Streamlit uygulaması
-st.title('Farklı Ana Türlere Göre Kitapların Dağılımı')
-
-# Matplotlib grafiği oluşturma
-plt.figure(figsize=(12, 8), dpi=200)
-meta['Main Genre'].value_counts().plot(kind='barh')
-plt.title('Distribution of Books Across Main Genres')
-plt.xlabel('Number of Books')
-plt.ylabel('Main Genre')
-
-# Streamlit'te grafiği gösterme
-st.pyplot(plt)
-
-
 # Yazardaki boşlukları Unknown ile doldur
 meta['Author'].fillna('Unknown', inplace=True)
 meta = meta[(meta['Rating'] != 0) & (meta['Price'] != 0)]
