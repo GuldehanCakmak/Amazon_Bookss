@@ -173,19 +173,19 @@ st.pyplot(plt)
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
-def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genre=None):
+def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
     if genre:
         genre_df = meta[meta['Main Genre'] == genre]
         genre_indices = genre_df.index
-        user_pca_filtered = user_pca.loc[genre_indices]
+        user_filtered = user.loc[genre_indices]
     else:
         genre_df = meta
-        user_pca_filtered = user_pca
+        user_filtered = user
 
     if sub_genre:
         genre_df = genre_df[genre_df['Sub Genre'] == sub_genre]
         genre_indices = genre_df.index
-        user_pca_filtered = user_pca_filtered.loc[genre_indices]
+        user_filtered = user_filtered.loc[genre_indices]
 
     titles = genre_df['Title'].tolist()
     best_match = process.extractOne(book_title.strip(), titles)
@@ -194,9 +194,9 @@ def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genr
         raise ValueError(f"'{book_title}' kitabı veri setinde bulunmuyor.")
 
     matched_title = best_match[0]
-    idx = genre_df[genre_df['Title'] == matched_title].index[0]
+    idx = genre_df[genre_meta['Title'] == matched_title].index[0]
     
-    cosine_sim = cosine_similarity(user_pca_filtered)
+    cosine_sim = cosine_similarity(user_filtered)
     sim_scores = list(enumerate(cosine_sim[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
     sim_scores = sim_scores[1:top_n + 1]
@@ -226,7 +226,7 @@ if st.button('Kitap Tavsiye Et'):
             recommended_books = find_similar_books(
                 selected_book,
                 meta,
-                user_pca,
+                user,
                 genre=selected_genre,
                 sub_genre=selected_sub_genre
             )
