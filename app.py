@@ -148,7 +148,7 @@ genres = ["Arts, Film & Photography", "Biographies, Diaries & True Accounts", "C
 selected_genre = graph_tab.selectbox(label="Tür seçiniz", options=genres)
 graph_tab.markdown(f"Seçilen tür: **{selected_genre}**")
 
-graph_tab.dataframe(meta.loc[meta.MainGenre.str.contains(selected_genre), ['Title', 'Main Genre', 'Rating', 'Price']].sort_values(by="vote_average", ascending=False).head(10))
+graph_tab.dataframe(meta.loc[meta['Main Genre'].str.contains(selected_genre), ['Title', 'Main Genre', 'Rating', 'Price']].sort_values(by="vote_average", ascending=False).head(10))
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
