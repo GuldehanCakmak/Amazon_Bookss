@@ -46,9 +46,9 @@ user_pca = pca.fit_transform(user_scaled)
 # home tab
 
 col1, col2, col3 = home_tab.columns([1,1,1])
-col1.image("https://https://depositphotos.com/tr/photo/a-cup-of-hot-coffee-flowers-and-book-57443105.html")
+col1.image("Kitap kahve cicek resmi")
 col1.subheader("Nedir?")
-col1.markdown('*Film dünyası geniş bir deniz gibi; her türden, her dilden ve her duygudan eserlerle dolu. Bizim film öneri sistemi, size tam da bu denizde yol gösterecek. Sizin ilgi alanlarınıza, beğenilerinize ve tercihlerinize göre özenle seçilmiş filmleri öneriyoruz. Üstelik, algoritma her geçen gün sizinle daha iyi anlaşacak ve beğenilerinizi daha doğru tahmin edecek şekilde gelişiyor.*')
+col1.markdown('*Merhaba sevgili kitap severler! Ben bir kitap kurdu olarak her zaman yeni ve ilginç kitaplar keşfetmeyi, okumayı ve bu kitapları arkadaşlarımla paylaşmayı çok severim. Geçenlerde, Amazon'un devasa kitap veri tabanını keşfetmeye karar verdim. Amacım, arkadaşlarıma onların zevklerine en uygun kitapları önermek ve bu devasa bilgi denizinden en iyi şekilde faydalanmak oldu. İşte bu serüvenin hikayesi ve sonuçları!*')
 col1.audio("http://soundfxcenter.com/movies/star-wars/8d82b5_Star_Wars_The_Imperial_March_Theme_Song.mp3")
 
 col2.subheader("Nasıl çalışır?")
