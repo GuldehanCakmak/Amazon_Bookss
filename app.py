@@ -43,6 +43,8 @@ cluster_labels = kmeans.fit_predict(user_scaled)
 pca = PCA(n_components=2)
 user_pca = pca.fit_transform(user_scaled)
 
+
+# recommendation_tab
 def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
     # Filtreleme işlemleri
     if genre:
