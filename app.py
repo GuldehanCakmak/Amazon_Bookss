@@ -171,6 +171,7 @@ st.pyplot(plt)
 
 
 # recommendation_tab
+r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
 def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
     # Filtreleme işlemleri
     if genre:
