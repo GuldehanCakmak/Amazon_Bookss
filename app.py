@@ -178,21 +178,7 @@ col3.markdown("Film öneri sistemi ile maceraya hazır mısınız? Sizi keşfetm
 
 # graph tab
 
-fig = px.bar(data_frame=meta.sort_values(by="revenue", ascending=False).head(10),
-                 x="revenue",
-                 y="original_title",
-                 orientation="h",
-                 hover_data=["release_date"],
-                 color="vote_average",
-                 color_continuous_scale='blues')
-                 
-graph_tab.plotly_chart(fig)
 
-genres = ['Title', 'Author', 'Main Genre', 'Rating', 'No. of People rated']
-selected_genre = graph_tab.selectbox(label="Tür seçiniz", options=genres)
-graph_tab.markdown(f"Seçilen tür: **{selected_genre}**")
-
-graph_tab.dataframe(meta.loc[meta.genres_x.str.contains(selected_genre), ['title', 'genres_x', 'release_date', 'vote_average']].sort_values(by="vote_average", ascending=False).head(10))
 
 # recommendation_tab
 
