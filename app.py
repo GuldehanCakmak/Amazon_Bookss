@@ -64,6 +64,16 @@ col3.markdown("*Hava Durumu ile Kitap Önerisi: Hava durumu verilerini alarak he
 ("*Ayşe, senin için harika bir romantik kitap buldum. Hava güneşli ve senin de keyfin yerinde.  Pride and Prejudice tam sana göre!*")
 ("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:   Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
 
+# graph tab
+
+# Farklı Ana Türlere Göre Kitapların Dağılımı
+plt.figure(figsize=(12, 8), dpi=200)
+meta['Main Genre'].value_counts().plot(kind='barh')
+plt.title('Distribution of Books Across Main Genres')
+plt.xlabel('Number of Books')
+plt.ylabel('Main Genre')
+plt.show()
+
 
 # recommendation_tab
 def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
