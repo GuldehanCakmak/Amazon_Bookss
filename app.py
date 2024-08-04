@@ -89,7 +89,7 @@ min_ratings_threshold = 1000
 
 # Group by 'Author' and calculate mean rating, mean price, and total number of ratings
 try:
-    author_stats = df.groupby('Author').agg({
+    author_stats = meta.groupby('Author').agg({
         'Rating': 'mean',
         'Price': 'mean',
         'No. of People rated': ['sum', 'mean']
