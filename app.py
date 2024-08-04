@@ -14,7 +14,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from fuzzywuzzy import process
 import requests
 import plotly.express as px
-!pip install yellowbrick
+pip install yellowbrick
 
 
 def get_data():
