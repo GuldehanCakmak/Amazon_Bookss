@@ -162,7 +162,7 @@ col3.markdown("Film öneri sistemi ile maceraya hazır mısınız? Sizi keşfetm
 
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
     # Kitap tavsiyesi
-    book_title = st.text_input('Kitap adı girin:')
+       book_title = st.text_input('Kitap adı girin:')
     if book_title:
         similar_books = find_similar_books(book_title, df, features_pca)
         if not similar_books.empty:
