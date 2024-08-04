@@ -25,8 +25,6 @@ def get_data():
 
 meta, user = get_data()
 
-home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
-
  # Verileri işleyin ve ölçekleyin
 scaler = MinMaxScaler()
 user_scaled = scaler.fit_transform(user)
@@ -44,7 +42,7 @@ pca = PCA(n_components=2)
 user_pca = pca.fit_transform(user_scaled)
 
 # home tab
-
+home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
 col1, col2, col3 = home_tab.columns([1,1,1])
 col1.image("https://www.looper.com/img/gallery/star-wars-how-darth-vaders-costume-limited-the-duel-in-a-new-hope/l-intro-1683252662.jpg")
 col1.subheader("Nedir?")
