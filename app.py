@@ -14,7 +14,7 @@ from fuzzywuzzy import process
 import requests
 import plotly.express as px
 
-st.set_page_config(layout='wide', page_title='Movie Recommender', page_icon='🎥')
+st.set_page_config(layout='wide', page_title='Book Recommender', page_icon='book')
 # Load the model
 
 @st.cache_data
