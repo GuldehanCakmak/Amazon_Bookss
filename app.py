@@ -80,6 +80,58 @@ plt.ylabel('Main Genre')
 # Streamlit'te grafiği gösterme
 st.pyplot(plt)
 
+# Set a minimum threshold for the number of ratings to be considered for 'Best Rated Authors'
+min_ratings_threshold = 1000
+
+# Group by 'Author' and calculate mean rating, mean price, and total number of ratings
+author_stats = meta.groupby('Author').agg({
+    'Rating': 'mean',
+    'Price': 'mean',
+    'No. of People rated': ['sum', 'mean']
+}).reset_index()
+
+# Flatten the multi-level column names
+author_stats.columns = ['Author', 'Avg Rating', 'Avg Price', 'Total Ratings', 'Avg Ratings per Book']
+
+# Filter authors to ensure they have a significant number of ratings for reliability
+best_rated_authors = author_stats[author_stats['Avg Ratings per Book'] > min_ratings_threshold].sort_values(by='Avg Rating', ascending=False).head(10)
+
+# Identify the most expensive authors
+most_expensive_authors = author_stats.sort_values(by='Avg Price', ascending=False).head(10)
+
+# Identify the most rated authors
+most_rated_authors = author_stats.sort_values(by='Total Ratings', ascending=False).head(10)
+
+# Streamlit başlığı
+st.title('Kitap Yazarlarının Değerlendirmesi')
+
+# Visualization setup
+fig, axs = plt.subplots(3, 1, figsize=(18, 14), dpi=200)
+
+# Best Rated Authors
+sns.barplot(x='Avg Rating', y='Author', data=best_rated_authors, palette='cool', ax=axs[0])
+axs[0].set_title('Top 10 Best Rated Authors')
+axs[0].set_xlabel('Average Rating')
+axs[0].set_ylabel('Author')
+
+# Most Expensive Authors
+sns.barplot(x='Avg Price', y='Author', data=most_expensive_authors, palette='autumn', ax=axs[1])
+axs[1].set_title('Top 10 Most Expensive Authors')
+axs[1].set_xlabel('Average Price (₹)')
+axs[1].set_ylabel('Author')
+
+# Most Rated Authors
+sns.barplot(x='Total Ratings', y='Author', data=most_rated_authors, palette='spring', ax=axs[2])
+axs[2].set_title('Top 10 Most Rated Authors')
+axs[2].set_xlabel('Total Ratings')
+axs[2].set_ylabel('Author')
+
+plt.tight_layout()
+
+# Streamlit'te grafiği gösterme
+st.pyplot(fig)
+
+
 
 # recommendation_tab
 def find_similar_books(book_title, meta, user, top_n=5, genre=None, sub_genre=None):
