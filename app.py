@@ -110,8 +110,9 @@ city = col3.text_input("Şehir Adını Girin:")
 # Kullanıcıdan kitap formatını seçmesini isteyin
 book_format = col3.radio("Kitap formatını seçin:", ('text', 'audio'))
 
+
 # Tavsiye butonu
-if col3.button('Kitap Tavsiye Et'):
+if col3.button('Kitap Tavsiye Et', key='recommend_button'):
     if not city:
         col3.warning("Lütfen bir şehir adı girin.")
     else:
