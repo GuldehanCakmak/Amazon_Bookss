@@ -23,9 +23,9 @@ def get_data():
     meta = pd.read_csv('Books_df.csv')
     user = pd.read_csv('Output_csv.csv')
     top_books = pd.read_csv('top_books_per_genre.csv')
-    return meta, user
+    return meta, user, top_books
 
-meta, user = get_data()
+meta, user, top_books = get_data()
 
  # Verileri işleyin ve ölçekleyin
 scaler = MinMaxScaler()
