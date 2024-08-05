@@ -75,7 +75,7 @@ fig = px.bar(data_frame=meta.sort_values(by="Main Genre", ascending=False).head(
                  y="Title",
                  orientation="h",
                  hover_data=["Rating"],
-                 color="vote_average",
+                 color="Rating",
                  color_continuous_scale='blues')
                  
 graph_tab.plotly_chart(fig)
