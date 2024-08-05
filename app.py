@@ -51,11 +51,10 @@ meta['Price'] = meta['Price'].str.replace('₹', '').str.replace(',', '').astype
 
 # home tab
 home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
-col1, col2, col3 = home_tab.columns([1,1,1])
+col1, col2, col3 = home_tab.columns([2,2,1])
 col1.image("https://st4.depositphotos.com/1544309/21848/i/1600/depositphotos_218482086-stock-photo-tasty-cup-coffee-flowers-books.jpg")
 col1.subheader("Nedir?")
 col1.markdown("*Merhaba sevgili kitap severler! Ben bir kitap kurdu olarak her zaman yeni ve ilginç kitaplar keşfetmeyi, okumayı ve bu kitapları arkadaşlarımla paylaşmayı çok severim. Geçenlerde, Amazon'un devasa kitap veri tabanını keşfetmeye karar verdim. Amacım, arkadaşlarıma onların zevklerine en uygun kitapları önermek ve bu devasa bilgi denizinden en iyi şekilde faydalanmak oldu. İşte bu serüvenin hikayesi ve sonuçları!*")
-col1.audio("http://sounmetaxcenter.com/movies/star-wars/8d82b5_Star_Wars_The_Imperial_March_Theme_Song.mp3")
 
 col2.subheader("Hangi Kitap?")
 col2.markdown("Verileri analiz etmeye başladığımda, bazı kitapların binlerce kez değerlendirildiğini ve yüksek puanlar aldığını fark ettim. Diğer kitaplar ise daha az ilgi görmüştü ama belirli bir okuyucu kitlesi tarafından çok beğenilmişti. Bu bilgiler ışığında, arkadaşlarımın okuma alışkanlıklarına göre özelleştirilmiş öneriler sunabileceğimi anladım.")
@@ -69,8 +68,6 @@ col2.image("https://media.vanityfair.com/photos/5e2871cdb8e7e70008021290/master/
 
 col3.image("https://scontent-mxp2-1.xx.fbcdn.net/v/t39.30808-6/317247251_179860584654533_6267308118294321546_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Osd0MnagWWgQ7kNvgHAfBFG&_nc_ht=scontent-mxp2-1.xx&oh=00_AYD8XT51RBcsdrwb20hX9exxmU9zuY6bFBI-iAGA4cFx7w&oe=66B707FB")
 col3.subheader("Günün Kitap Tavsiyesi")
-col3.markdown("Havana gore kitabini bul")
-
 
 
 # Hava durumu verisini almak için OpenWeatherMap API'si
