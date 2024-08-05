@@ -70,7 +70,66 @@ col3.markdown("*Ahmet, sen polisiye romanları çok seviyorsun. İşte bu yağmu
 col3.markdown("*Ayşe, senin için harika bir romantik kitap buldum. Hava güneşli ve senin de keyfin yerinde.  Pride and Prejudice tam sana göre!*")
 col3.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:   Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
 
+# Hava durumu verisini almak için OpenWeatherMap API'si
+def get_weather(api_key, city):
+    base_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    response = requests.get(base_url)
+    data = response.json()
+    return data
 
+# Hava durumuna göre kitap önerileri
+def suggest_books_by_weather(weather_condition, book_format='text'):
+    recommendations = {
+        'Clear': {
+            'text': ['The Alchemist by Paulo Coelho', 'To Kill a Mockingbird by Harper Lee'],
+            'audio': ['Becoming by Michelle Obama (Audiobook)', 'Educated by Tara Westover (Audiobook)']
+        },
+        'Rain': {
+            'text': ['The Girl with the Dragon Tattoo by Stieg Larsson', 'Gone Girl by Gillian Flynn'],
+            'audio': ['The Silent Patient by Alex Michaelides (Audiobook)', 'Big Little Lies by Liane Moriarty (Audiobook)']
+        },
+        'Snow': {
+            'text': ['Harry Potter Series by J.K. Rowling', 'The Hobbit by J.R.R. Tolkien'],
+            'audio': ['A Game of Thrones by George R.R. Martin (Audiobook)', 'The Lion, the Witch and the Wardrobe by C.S. Lewis (Audiobook)']
+        },
+        'Clouds': {
+            'text': ['The Catcher in the Rye by J.D. Salinger', '1984 by George Orwell'],
+            'audio': ['The Great Gatsby by F. Scott Fitzgerald (Audiobook)', 'The Handmaid\'s Tale by Margaret Atwood (Audiobook)']
+        }
+    }
+    return recommendations.get(weather_condition, {'text': ['Pride and Prejudice by Jane Austen', 'Moby Dick by Herman Melville'],
+                                                   'audio': ['The Odyssey by Homer (Audiobook)', 'Jane Eyre by Charlotte Bronte (Audiobook)']}).get(book_format)
+
+# Streamlit uygulaması
+col3.title('Hava Durumuna Göre Kitap Tavsiye Sistemi')
+
+# Kullanıcıdan girdi alma
+api_key = '9b0d2c746a9ee16b19a569fa9a2d05a8'  # OpenWeatherMap API anahtarınızı buraya yazın
+city = col3.text_input("Şehir Adını Girin:")
+
+# Kullanıcıdan kitap formatını seçmesini isteyin
+book_format = col3.radio("Kitap formatını seçin:", ('text', 'audio'))
+
+# Tavsiye butonu
+if col3.button('Kitap Tavsiye Et'):
+    if not city:
+        col3.warning("Lütfen bir şehir adı girin.")
+    else:
+        try:
+            weather_data = get_weather(api_key, city)
+            
+            if 'weather' in weather_data:
+                weather_condition = weather_data['weather'][0]['main']
+                book_recommendations = suggest_books_by_weather(weather_condition, book_format)
+                
+                col3.write(f"Hava Durumu: {weather_condition}")
+                col3.write("Önerilen Kitaplar:")
+                for book in book_recommendations:
+                    col3.write(f"- {book}")
+            else:
+                col3.error("Hava durumu bilgisi alınamadı. API yanıtını kontrol edin.")
+        except Exception as e:
+            col3.error(f"Bir hata oluştu: {e}")
  
 
 # graph tab
