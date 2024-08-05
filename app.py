@@ -162,14 +162,14 @@ if recommendation_tab.button('Kitap Tavsiye Et'):
     else:
         try:
             # Gerçek veri ve PCA özelliklerinin sağlandığından emin olun
-            similar_books = find_similar_books(book_title, meta, user_pca, URLs)
+            similar_books = find_similar_books(book_title, meta, user_pca)
             
             if similar_books.empty:
                 recommendation_tab.write("Maalesef öneri bulunamadı.")
             else:
                 recommendation_tab.write("Önerilen Kitaplar:")
                 for index, row in similar_books.iterrows():
-                    recommendation_tab.image(row['URLs'], caption=row['Title'])
+                    recommendation_tab.image(meta['URLs'], caption=row['Title'])
                     recommendation_tab.write(f"Yazar: {row['Author']}")
                     recommendation_tab.write(f"Tür: {row['Main Genre']} - Alt Tür: {row['Sub Genre']}")
                     recommendation_tab.write("---")
