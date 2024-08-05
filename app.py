@@ -20,7 +20,7 @@ st.set_page_config(layout='wide', page_title='Book Recommender', page_icon='book
 # Load the model
 @st.cache_data
 def get_data():
-    meta = pd.read_csv('Books_df.csv')
+    meta = pd.read_csv('Books_meta.csv')
     user = pd.read_csv('Output_csv.csv')
     top_books = pd.read_csv('top_books_per_genre.csv')
     return meta, user, top_books
@@ -55,7 +55,7 @@ col1, col2, col3 = home_tab.columns([1,1,1])
 col1.image("https://st4.depositphotos.com/1544309/21848/i/1600/depositphotos_218482086-stock-photo-tasty-cup-coffee-flowers-books.jpg")
 col1.subheader("Nedir?")
 col1.markdown("*Merhaba sevgili kitap severler! Ben bir kitap kurdu olarak her zaman yeni ve ilginç kitaplar keşfetmeyi, okumayı ve bu kitapları arkadaşlarımla paylaşmayı çok severim. Geçenlerde, Amazon'un devasa kitap veri tabanını keşfetmeye karar verdim. Amacım, arkadaşlarıma onların zevklerine en uygun kitapları önermek ve bu devasa bilgi denizinden en iyi şekilde faydalanmak oldu. İşte bu serüvenin hikayesi ve sonuçları!*")
-col1.audio("http://soundfxcenter.com/movies/star-wars/8d82b5_Star_Wars_The_Imperial_March_Theme_Song.mp3")
+col1.audio("http://sounmetaxcenter.com/movies/star-wars/8d82b5_Star_Wars_The_Imperial_March_Theme_Song.mp3")
 
 col2.subheader("Hangi Kitap?")
 col2.markdown("Verileri analiz etmeye başladığımda, bazı kitapların binlerce kez değerlendirildiğini ve yüksek puanlar aldığını fark ettim. Diğer kitaplar ise daha az ilgi görmüştü ama belirli bir okuyucu kitlesi tarafından çok beğenilmişti. Bu bilgiler ışığında, arkadaşlarımın okuma alışkanlıklarına göre özelleştirilmiş öneriler sunabileceğimi anladım.")
@@ -106,25 +106,27 @@ r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
 
 def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genre=None):
     # Filtreleme işlemleri
-    if genre and genre != 'None':
-        meta = meta[meta['Main Genre'] == genre]
-        genre_indices = meta.index
+    if genre:
+        genre_meta = meta[meta['Main Genre'] == genre]
+        genre_indices = genre_meta.index
         user_pca = user_pca[genre_indices]
-        
-    if sub_genre and sub_genre != 'None':
-        meta = meta[meta['Sub Genre'] == sub_genre]
-        genre_indices = meta.index
+    else:
+        genre_meta = meta
+    
+    if sub_genre:
+        genre_meta = genre_meta[genre_meta['Sub Genre'] == sub_genre]
+        genre_indices = genre_meta.index
         user_pca = user_pca[genre_indices]
 
     # Kısmi eşleşmeyi bul ve en yakın başlığı seç
-    titles = meta['Title'].tolist()
+    titles = genre_meta['Title'].tolist()
     best_match = process.extractOne(book_title.strip(), titles)
     
     if best_match is None or best_match[1] < 80:  # Benzerlik skoru eşiği
         raise ValueError(f"'{book_title}' kitabı veri setinde bulunmuyor.")
 
     matched_title = best_match[0]
-    idx = genre_df[genre_df['Title'] == matched_title].index[0]
+    idx = genre_meta[genre_meta['Title'] == matched_title].index[0]
     
     # Cosine benzerlik hesapla
     cosine_sim = cosine_similarity(user_pca)
@@ -133,16 +135,14 @@ def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genr
     sim_scores = sim_scores[1:top_n + 1]
     
     book_indices = [i[0] for i in sim_scores]
-    similar_books = meta.iloc[book_indices]
-    
+    similar_books = genre_meta.iloc[book_indices]
     
     # İlk kitabı önerilenlerden çıkararak tekrarını engelleme
-    book_indices = [i[0] for i in sim_scores if metadf.iloc[i[0]]['Title'] != matched_title][:top_n]
-    similar_books = meta.iloc[book_indices]
+    book_indices = [i[0] for i in sim_scores if genre_meta.iloc[i[0]]['Title'] != matched_title][:top_n]
+    similar_books = genre_meta.iloc[book_indices]
     
     # Tekrar eden başlıkları kaldır
     unique_books = similar_books.drop_duplicates(subset='Title', keep='first')
-    return unique_books
     
     # Alt türlere göre filtreleme
     filtered_books = unique_books.groupby('Sub Genre').first().reset_index()
@@ -162,7 +162,7 @@ if st.button('Kitap Tavsiye Et'):
     else:
         try:
             # Gerçek veri ve PCA özelliklerinin sağlandığından emin olun
-            similar_books = find_similar_books(book_title, meta, user_pca )
+            similar_books = find_similar_books(book_title, meta, user_pca)
             
             if similar_books.empty:
                 st.write("Maalesef öneri bulunamadı.")
