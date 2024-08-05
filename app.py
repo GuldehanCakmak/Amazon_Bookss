@@ -22,7 +22,7 @@ st.set_page_config(layout='wide', page_title='Book Recommender', page_icon='book
 def get_data():
     meta = pd.read_csv('Books_df.csv')
     user = pd.read_csv('Output_csv.csv')
-    top_books = pd.read_csv('pd.read_csv('top_books_per_genre.csv')
+    top_books = pd.read_csv('top_books_per_genre.csv')
     return meta, user
 
 meta, user = get_data()
