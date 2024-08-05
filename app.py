@@ -76,7 +76,7 @@ col3.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe gider
 # graph tab
 
 fig = px.bar(data_frame=meta.sort_values(by="Rating", ascending=False).head(10),
-                 x="Rating",
+                 x="Author",
                  y="Title",
                  orientation="h",
                  hover_data=["Author"],
