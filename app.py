@@ -75,14 +75,14 @@ col3.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe gider
 
 # graph tab
 
-fig = px.bar(data_frame=top_books_per_genre.head(10),
-                 x="Author",
+fig = px.bar(data_frame=meta.sort_values(by="Rating", ascending=False).head(10),
+                 x="Rating",
                  y="Title",
                  orientation="h",
-                 hover_data=["Rating"],
+                 hover_data=["Author"],
                  color="Rating",
                  color_continuous_scale='blues')
-    
+                 
 graph_tab.plotly_chart(fig)
 
 
