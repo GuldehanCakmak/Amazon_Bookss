@@ -124,7 +124,7 @@ def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genr
         raise ValueError(f"'{book_title}' kitabı veri setinde bulunmuyor.")
 
     matched_title = best_match[0]
-    idx = meta[meta['Title'] == matched_title].index[0]
+    idx = genre_df[genre_df['Title'] == matched_title].index[0]
     
     # Cosine benzerlik hesapla
     cosine_sim = cosine_similarity(user_pca)
@@ -135,62 +135,42 @@ def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genr
     book_indices = [i[0] for i in sim_scores]
     similar_books = meta.iloc[book_indices]
     
+    
+    # İlk kitabı önerilenlerden çıkararak tekrarını engelleme
+    book_indices = [i[0] for i in sim_scores if metadf.iloc[i[0]]['Title'] != matched_title][:top_n]
+    similar_books = meta.iloc[book_indices]
+    
     # Tekrar eden başlıkları kaldır
     unique_books = similar_books.drop_duplicates(subset='Title', keep='first')
-    
     return unique_books
+    
+    # Alt türlere göre filtreleme
+    filtered_books = unique_books.groupby('Sub Genre').first().reset_index()
+      
+    return filtered_books
 
 # Streamlit uygulaması
 st.title('Kitap Tavsiye Sistemi')
 
 # Kullanıcıdan girdi alma
-selected_book = st.text_input("Kitap Başlığını Girin:")
-
-
-# Dinamik tür güncellemeleri
-if 'selected_book' in st.session_state:
-    # Seçili kitaba göre türlerin güncellenmesi
-    filtered_meta = meta[meta['Title'] == st.session_state.selected_book]
-    if not filtered_meta.empty:
-        unique_genres = list(filtered_meta['Main Genre'].unique())
-        unique_sub_genres = list(filtered_meta['Sub Genre'].unique())
-    else:
-        unique_genres = list(meta['Main Genre'].unique())
-        unique_sub_genres = list(meta['Sub Genre'].unique())
-else:
-    unique_genres = list(meta['Main Genre'].unique())
-    unique_sub_genres = list(meta['Sub Genre'].unique())
-
-# Ana tür ve alt tür seçimleri
-selected_genre = st.selectbox("Ana Tür Seçin:", options=unique_genres + ['None'])
-selected_sub_genre = st.selectbox("Alt Tür Seçin:", options=unique_sub_genres + ['None'])
+book_title = st.text_input("Kitap Başlığını Girin:")
 
 # Tavsiye butonu
 if st.button('Kitap Tavsiye Et'):
-    if not selected_book:
+    if not book_title:
         st.warning("Lütfen bir kitap başlığı girin.")
     else:
-        st.session_state.selected_book = selected_book  # Kitap başlığını session state'e kaydet
         try:
-            recommended_books = find_similar_books(
-                selected_book,
-                meta,
-                user_pca,
-                genre=None if selected_genre == 'None' else selected_genre,
-                sub_genre=None if selected_sub_genre == 'None' else selected_sub_genre
-            )
-            if recommended_books.empty:
+            # Gerçek veri ve PCA özelliklerinin sağlandığından emin olun
+            similar_books = find_similar_books(book_title, meta, user_pca )
+            
+            if similar_books.empty:
                 st.write("Maalesef öneri bulunamadı.")
             else:
                 st.write("Önerilen Kitaplar:")
-                for index, row in recommended_books.iterrows():
-                    try:
-                        st.image(row['URLs'], caption=row['Title'], use_column_width=True)
-                    except Exception as e:
-                        st.warning(f"Resim yüklenirken bir hata oluştu: {e}")
+                st.dataframe(similar_books[['Title', 'Author', 'Main Genre', 'Sub Genre']])
         except ValueError as e:
             st.error(e)
         except Exception as e:
             st.error(f"Bir hata oluştu: {e}")
-
 
