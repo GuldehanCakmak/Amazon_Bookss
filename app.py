@@ -103,7 +103,7 @@ def suggest_books_by_weather(weather_condition, book_format='text'):
                                                    'audio': ['The Odyssey by Homer (Audiobook)', 'Jane Eyre by Charlotte Bronte (Audiobook)']}).get(book_format)
 
 # Streamlit uygulaması
-col3.title('Hava Durumuna Göre Kitap Tavsiye Sistemi')
+
 
 # Kullanıcıdan girdi alma
 api_key = '9b0d2c746a9ee16b19a569fa9a2d05a8'  # OpenWeatherMap API anahtarınızı buraya yazın
