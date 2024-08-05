@@ -37,9 +37,6 @@ col3.markdown("*Ahmet, sen polisiye romanları çok seviyorsun. İşte bu yağmu
 col3.markdown("*Ayşe, senin için harika bir romantik kitap buldum. Hava güneşli ve senin de keyfin yerinde.  Pride and Prejudice tam sana göre!*")
 col3.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:   Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
 
-# graph_tab
-col1, col2, col3 = graph_tab.columns([1,1,1])
-
 # Load the model
 @st.cache_data
 def get_data():
@@ -71,13 +68,21 @@ meta = meta[(meta['Rating'] != 0) & (meta['Price'] != 0)]
 # Price daki para birimi işaretini kaldır
 meta['Price'] = meta['Price'].str.replace('₹', '').str.replace(',', '').astype(float)
 
+# graph tab
+fig = px.bar(data_frame=meta.sort_values(by="Main Genre", ascending=False).head(10),
+                 x="Main Genre",
+                 y="Title",
+                 orientation="h",
+                 hover_data=["release_date"],
+                 color="vote_average",
+                 color_continuous_scale='blues')
+                 
 graph_tab.plotly_chart(fig)
 
-genres = ["Arts, Film & Photography", "Biographies, Diaries & True Accounts", "Children's Books", "Crime, Thriller & Mystery", "Fantasy, Horror & Science Fiction"]
+genres = ["Arts, Film & Photography	", "Children's Books", "Fantasy, Horror & Science Fiction", "Comics & Mangas", "Romance"]
 selected_genre = graph_tab.selectbox(label="Tür seçiniz", options=genres)
 graph_tab.markdown(f"Seçilen tür: **{selected_genre}**")
 
-graph_tab.dataframe(meta.loc[meta['Main Genre'].str.contains(selected_genre), ['Title', 'Main Genre', 'Rating', 'Price']].sort_values(by="Rating", ascending=False).head(10))
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
@@ -124,6 +129,7 @@ st.title('Kitap Tavsiye Sistemi')
 
 # Kullanıcıdan girdi alma
 selected_book = st.text_input("Kitap Başlığını Girin:")
+
 
 # Dinamik tür güncellemeleri
 if 'selected_book' in st.session_state:
