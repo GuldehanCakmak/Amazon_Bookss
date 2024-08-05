@@ -71,16 +71,20 @@ col3.markdown("*Ahmet, sen polisiye romanları çok seviyorsun. İşte bu yağmu
 col3.markdown("*Ayşe, senin için harika bir romantik kitap buldum. Hava güneşli ve senin de keyfin yerinde.  Pride and Prejudice tam sana göre!*")
 col3.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:   Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
 
+significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
+filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
+top_books_per_genre = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
+top_books_per_genre 
 
 # graph tab
-fig = px.bar(data_frame=meta.sort_values(by="Author", ascending=False).head(10),
+fig = px.bar(data_frame=top_books_per_genre.sort_values(by="Author", ascending=False).head(10),
                  x="Author",
                  y="Title",
                  orientation="h",
                  hover_data=["Main Genre"],
                  color="Rating",
                  color_continuous_scale='blues')
-                 
+                 filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
 graph_tab.plotly_chart(fig)
 
 genres = ["Arts, Film & Photography", "Children's Books", "Fantasy, Horror & Science Fiction", "Comics & Mangas", "Romance"]
