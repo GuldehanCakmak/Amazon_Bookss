@@ -78,7 +78,7 @@ significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
 filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
 top_books_per_genre = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
 
-fig = px.bar(data_frame=top_books_per_genre.sort_values(by="Rating", ascending=False).head(10),
+fig = px.bar(top_books_per = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()],
                  x="Author",
                  y="Title",
                  orientation="h",
