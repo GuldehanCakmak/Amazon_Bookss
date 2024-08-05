@@ -48,11 +48,6 @@ meta = meta[(meta['Rating'] != 0) & (meta['Price'] != 0)]
 # Price daki para birimi işaretini kaldır
 meta['Price'] = meta['Price'].str.replace('₹', '').str.replace(',', '').astype(float)
 
-significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
-filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
-top_books_per_genre = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
-top_books_per_genre 
-
 # home tab
 home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
 col1, col2, col3 = home_tab.columns([1,1,1])
@@ -75,9 +70,15 @@ col3.markdown("*Ayşe, senin için harika bir romantik kitap buldum. Hava güne�
 col3.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:   Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
 
 
+ 
 
 # graph tab
-fig = px.bar(data_frame=top_books_per_genre.sort_values(by="Author", ascending=False).head(10),
+
+significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
+filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
+top_books_per_genre = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
+
+fig = px.bar(data_frame=top_books_per_genre.sort_values(by="Rating", ascending=False).head(10),
                  x="Author",
                  y="Title",
                  orientation="h",
@@ -86,6 +87,7 @@ fig = px.bar(data_frame=top_books_per_genre.sort_values(by="Author", ascending=F
                  color_continuous_scale='blues')
     
 graph_tab.plotly_chart(fig)
+
 
 genres = ["Arts, Film & Photography", "Children's Books", "Fantasy, Horror & Science Fiction", "Comics & Mangas", "Romance"]
 selected_genre = graph_tab.selectbox(label="Tür seçiniz", options=genres)
@@ -97,6 +99,9 @@ graph_tab.dataframe(
         ['Title', 'Main Genre', 'Rating']
     ].sort_values(by="Rating", ascending=False).head(10)
 )
+
+
+
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
