@@ -73,7 +73,7 @@ fig = px.bar(data_frame=meta.sort_values(by="Main Genre", ascending=False).head(
                  x="Main Genre",
                  y="Title",
                  orientation="h",
-                 hover_data=["release_date"],
+                 hover_data=["Rating"],
                  color="vote_average",
                  color_continuous_scale='blues')
                  
@@ -83,6 +83,7 @@ genres = ["Arts, Film & Photography", "Children's Books", "Fantasy, Horror & Sci
 selected_genre = graph_tab.selectbox(label="Tür seçiniz", options=genres)
 graph_tab.markdown(f"Seçilen tür: **{selected_genre}**")
 
+graph_tab.dataframe(meta.loc[meta.genres_x.str.contains(selected_genre), ['Title', 'genres_x', Rating']].sort_values(by="Rating", ascending=False).head(10))
 
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
