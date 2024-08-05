@@ -169,7 +169,7 @@ if recommendation_tab.button('Kitap Tavsiye Et'):
             else:
                 recommendation_tab.write("Önerilen Kitaplar:")
                 for index, row in similar_books.iterrows():
-                    recommendation_tab.image(meta['URLs'], caption=row['Title'])
+                    recommendation_tab.image(row['URLs'], caption=row['Title'])
                     recommendation_tab.write(f"Yazar: {row['Author']}")
                     recommendation_tab.write(f"Tür: {row['Main Genre']} - Alt Tür: {row['Sub Genre']}")
                     recommendation_tab.write("---")
