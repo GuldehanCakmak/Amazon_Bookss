@@ -79,7 +79,7 @@ fig = px.bar(data_frame=top_books.head(10),
                  x='Author',
                  y="Title",
                  orientation="h",
-                 hover_data=["Rating"],
+                 hover_data=["Main Genre"],
                  color="Rating",
                  color_continuous_scale='blues')
                  
