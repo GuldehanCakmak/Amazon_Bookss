@@ -14,6 +14,9 @@ from fuzzywuzzy import process
 import requests
 import plotly.express as px
 
+st.set_page_config(layout='wide', page_title='Book Recommender', page_icon='book')
+
+
 # Load the model
 @st.cache_data
 def get_data():
@@ -45,7 +48,7 @@ meta = meta[(meta['Rating'] != 0) & (meta['Price'] != 0)]
 # Price daki para birimi işaretini kaldır
 meta['Price'] = meta['Price'].str.replace('₹', '').str.replace(',', '').astype(float)
 
-st.set_page_config(layout='wide', page_title='Book Recommender', page_icon='book')
+
 
 # home tab
 home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
