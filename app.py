@@ -153,7 +153,7 @@ def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genr
 st.title('Kitap Tavsiye Sistemi')
 
 # Kullanıcıdan girdi alma
-book_title = st.sidebar.selectbox.("Kitap Başlığını Girin:")
+book_title = st.sidebar.selectbox("Kitap Başlığını Girin:")
 
 # Tavsiye butonu
 if st.button('Kitap Tavsiye Et'):
