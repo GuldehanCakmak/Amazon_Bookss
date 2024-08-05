@@ -48,7 +48,10 @@ meta = meta[(meta['Rating'] != 0) & (meta['Price'] != 0)]
 # Price daki para birimi işaretini kaldır
 meta['Price'] = meta['Price'].str.replace('₹', '').str.replace(',', '').astype(float)
 
-
+significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
+filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
+top_books_per_genre = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
+top_books_per_genre 
 
 # home tab
 home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
@@ -71,10 +74,7 @@ col3.markdown("*Ahmet, sen polisiye romanları çok seviyorsun. İşte bu yağmu
 col3.markdown("*Ayşe, senin için harika bir romantik kitap buldum. Hava güneşli ve senin de keyfin yerinde.  Pride and Prejudice tam sana göre!*")
 col3.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:   Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
 
-significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
-filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
-top_books_per_genre = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
-top_books_per_genre 
+
 
 # graph tab
 fig = px.bar(data_frame=top_books_per_genre.sort_values(by="Author", ascending=False).head(10),
