@@ -79,7 +79,7 @@ fig = px.bar(data_frame=meta.sort_values(by="Main Genre", ascending=False).head(
                  
 graph_tab.plotly_chart(fig)
 
-genres = ["Arts, Film & Photography	", "Children's Books", "Fantasy, Horror & Science Fiction", "Comics & Mangas", "Romance"]
+genres = ["Arts, Film & Photography", "Children's Books", "Fantasy, Horror & Science Fiction", "Comics & Mangas", "Romance"]
 selected_genre = graph_tab.selectbox(label="Tür seçiniz", options=genres)
 graph_tab.markdown(f"Seçilen tür: **{selected_genre}**")
 
