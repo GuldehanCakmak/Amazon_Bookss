@@ -77,7 +77,7 @@ fig = px.bar(data_frame=meta.sort_values(by="Author", ascending=False).head(10),
                  x="Author",
                  y="Title",
                  orientation="h",
-                 hover_data=["Rating"],
+                 hover_data=["Main Genre"],
                  color="Rating",
                  color_continuous_scale='blues')
                  
