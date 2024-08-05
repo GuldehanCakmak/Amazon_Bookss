@@ -6,3 +6,4 @@ streamlit
 plotly
 yellowbrick
 fuzzywuzzy
+requests
