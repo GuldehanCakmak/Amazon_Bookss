@@ -150,27 +150,27 @@ def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genr
     return filtered_books
 
 # Streamlit uygulaması
-st.title('Kitap Tavsiye Sistemi')
+recommendation_tab.title('Kitap Tavsiye Sistemi')
 
 # Kullanıcıdan girdi alma
-book_title = st.text_input("Kitap Başlığını Girin:")
+book_title = recommendation_tab.text_input("Kitap Başlığını Girin:")
 
 # Tavsiye butonu
-if st.button('Kitap Tavsiye Et'):
+if recommendation_tab.button('Kitap Tavsiye Et'):
     if not book_title:
-        st.warning("Lütfen bir kitap başlığı girin.")
+        recommendation_tab.warning("Lütfen bir kitap başlığı girin.")
     else:
         try:
             # Gerçek veri ve PCA özelliklerinin sağlandığından emin olun
             similar_books = find_similar_books(book_title, meta, user_pca)
             
             if similar_books.empty:
-                st.write("Maalesef öneri bulunamadı.")
+                recommendation_tab.write("Maalesef öneri bulunamadı.")
             else:
-                st.write("Önerilen Kitaplar:")
-                st.dataframe(similar_books[['Title', 'Author', 'Main Genre', 'Sub Genre']])
+                recommendation_tab.write("Önerilen Kitaplar:")
+                recommendation_tab.dataframe(similar_books[['Title', 'Author', 'Main Genre', 'Sub Genre']])
         except ValueError as e:
-            st.error(e)
+            recommendation_tab.error(e)
         except Exception as e:
-            st.error(f"Bir hata oluştu: {e}")
+            recommendation_tab.error(f"Bir hata oluştu: {e}")
 
