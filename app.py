@@ -84,7 +84,7 @@ fig = px.bar(data_frame=top_books_per_genre.sort_values(by="Author", ascending=F
                  hover_data=["Main Genre"],
                  color="Rating",
                  color_continuous_scale='blues')
-                 filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
+    
 graph_tab.plotly_chart(fig)
 
 genres = ["Arts, Film & Photography", "Children's Books", "Fantasy, Horror & Science Fiction", "Comics & Mangas", "Romance"]
