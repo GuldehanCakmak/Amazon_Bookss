@@ -75,15 +75,11 @@ col3.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe gider
 
 # graph tab
 
-significant_ratings_threshold = meta['No. of People rated'].quantile(0.50)
-filtered_books = meta[meta['No. of People rated'] >= significant_ratings_threshold]
-top_books_per_genre = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()]
-
-fig = px.bar(top_books_per = filtered_books.loc[filtered_books.groupby('Main Genre')['Rating'].idxmax()],
+fig = px.bar(data_frame=top_books_per_genre.head(10),
                  x="Author",
                  y="Title",
                  orientation="h",
-                 hover_data=["Main Genre"],
+                 hover_data=["Rating"],
                  color="Rating",
                  color_continuous_scale='blues')
     
