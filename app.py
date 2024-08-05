@@ -172,7 +172,7 @@ if recommendation_tab.button('Kitap Tavsiye Et'):
                     recommendation_tab.image(row['URLs'], caption=row['Title'])
                     recommendation_tab.write(f"Yazar: {row['Author']}")
                     recommendation_tab.write(f"Tür: {row['Main Genre']} - Alt Tür: {row['Sub Genre']}")
-                    recommendation_tab.write("---"):
+                    recommendation_tab.write("---")
                 #recommendation_tab.write("Önerilen Kitaplar:")
                 #recommendation_tab.dataframe(similar_books[['Title','Author', 'Main Genre', 'Sub Genre']])
         except ValueError as e:
