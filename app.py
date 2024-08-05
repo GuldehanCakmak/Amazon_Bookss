@@ -162,7 +162,7 @@ if recommendation_tab.button('Kitap Tavsiye Et'):
     else:
         try:
             # Gerçek veri ve PCA özelliklerinin sağlandığından emin olun
-            similar_books = find_similar_books(book_title, meta, user_pca)
+            similar_books = find_similar_books(book_title, meta, user_pca, URLs)
             
             if similar_books.empty:
                 recommendation_tab.write("Maalesef öneri bulunamadı.")
