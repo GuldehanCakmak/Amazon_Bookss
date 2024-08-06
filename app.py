@@ -51,7 +51,7 @@ meta['Price'] = meta['Price'].str.replace('₹', '').str.replace(',', '').astype
 
 # home tab
 home_tab, graph_tab, recommendation_tab = st.tabs(["Ana Sayfa", "Grafikler","Öneri Sistemi"])
-col1, col2, col3 = home_tab.columns([1,2,1])
+col1, col2, col3 = home_tab.columns([2,2,1])
 col1.image("https://i.pinimg.com/564x/e8/f1/37/e8f13739ab419520d532e0a426c76298.jpg")
 col1.subheader("Nedir?")
 col1.markdown("*Merhaba sevgili kitap severler! Ben bir kitap kurdu olarak her zaman yeni ve ilginç kitaplar keşfetmeyi, okumayı ve bu kitapları arkadaşlarımla paylaşmayı çok severim. Geçenlerde, Amazon'un devasa kitap veri tabanını keşfetmeye karar verdim. Amacım, arkadaşlarıma onların zevklerine en uygun kitapları önermek ve bu devasa bilgi denizinden en iyi şekilde faydalanmak oldu. İşte bu serüvenin hikayesi ve sonuçları!*")
