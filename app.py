@@ -64,7 +64,7 @@ col2.markdown("*Sonuçlar gerçekten de heyecan vericiydi! Arkadaşlarıma kişi
 col2.markdown("*Ahmet, sen polisiye romanları çok seviyorsun. İşte bu yağmurlu gün için mükemmel bir öneri:  Sherlock Holmes serisi. Eminim ki seni çok heyecanlandıracak!*")
 col2.markdown("*Ayşe, senin için harika bir romantik kitap buldum. Hava güneşli ve senin de keyfin yerinde.  Pride and Prejudice tam sana göre!*")
 col2.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:   Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
-col2.image("https://media.vanityfair.com/photos/5e2871cdb8e7e70008021290/master/pass/M8DBESU_EC004.jpg")
+col2.image("https://i.pinimg.com/564x/ca/8f/dc/ca8fdc82586bea8fa7fff647ee37b4e1.jpg")
 
 col3.subheader("Günün Kitap Tavsiyesi")
 
