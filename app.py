@@ -66,7 +66,6 @@ col2.markdown("*Ayşe, senin için harika bir romantik kitap buldum. Hava güne�
 col2.markdown("*Mehmet, sesli kitapları sevdiğini biliyorum. İşte işe giderken dinleyebileceğin bir kitap:   Sapiens: İnsanlığın Kısa Tarihi . Eminim çok şey öğreneceksin.*")
 col2.image("https://media.vanityfair.com/photos/5e2871cdb8e7e70008021290/master/pass/M8DBESU_EC004.jpg")
 
-col3.image("https://scontent-mxp2-1.xx.fbcdn.net/v/t39.30808-6/317247251_179860584654533_6267308118294321546_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Osd0MnagWWgQ7kNvgHAfBFG&_nc_ht=scontent-mxp2-1.xx&oh=00_AYD8XT51RBcsdrwb20hX9exxmU9zuY6bFBI-iAGA4cFx7w&oe=66B707FB")
 col3.subheader("Günün Kitap Tavsiyesi")
 
 
