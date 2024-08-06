@@ -70,6 +70,7 @@ col2.image("https://img.aydinlik.com.tr/rcman/Cw1280h720q95gc/storage/files/imag
 col3.subheader("Günün Kitap Tavsiyesi")
 
 
+
 # Hava durumu verisini almak için OpenWeatherMap API'si
 def get_weather(api_key, city):
     base_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
