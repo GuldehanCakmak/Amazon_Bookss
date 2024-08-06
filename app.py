@@ -17,6 +17,7 @@ import plotly.express as px
 st.set_page_config(layout='wide', page_title='Book Recommender', page_icon='book')
 
 
+
 # Load the model
 @st.cache_data
 def get_data():
