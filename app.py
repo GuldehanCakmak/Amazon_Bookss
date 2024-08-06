@@ -205,7 +205,7 @@ def find_similar_books(book_title, meta, user_pca, top_n=5, genre=None, sub_genr
     # Alt türlere göre filtreleme
     filtered_books = unique_books.groupby('Sub Genre').first().reset_index()
       
-    return filtered_books
+    return filtered_books[['Title', 'Author', 'Main Genre', 'Sub Genre', 'Price', 'URLs']]
 
 # Streamlit uygulaması
 recommendation_tab.title('Kitap Tavsiye Sistemi')
@@ -230,6 +230,7 @@ if recommendation_tab.button('Kitap Tavsiye Et'):
                     recommendation_tab.image(row['URLs'], caption=row['Title'])
                     recommendation_tab.write(f"Yazar: {row['Author']}")
                     recommendation_tab.write(f"Tür: {row['Main Genre']} - Alt Tür: {row['Sub Genre']}")
+                    recommendation_tab.write(f"Fiyat: {row['Price']}")
                     recommendation_tab.write("---")
                 #recommendation_tab.write("Önerilen Kitaplar:")
                 #recommendation_tab.dataframe(similar_books[['Title','Author', 'Main Genre', 'Sub Genre']])
