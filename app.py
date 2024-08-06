@@ -215,6 +215,9 @@ recommendation_tab.title('Kitap Tavsiye Sistemi')
 # Kullanıcıdan girdi alma
 book_title = recommendation_tab.text_input("Kitap Başlığını Girin:")
 
+ # 'Price' kolonunu da dahil et
+    filtered_books = filtered_books[['Title', 'Author', 'Price', 'Main Genre', 'Sub Genre', 'URLs']]
+
 # Tavsiye butonu
 if recommendation_tab.button('Kitap Tavsiye Et'):
     if not book_title:
