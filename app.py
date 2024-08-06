@@ -158,8 +158,6 @@ graph_tab.dataframe(
 )
 
 
-
-
 # recommendation_tab
 r_col1, r_col2, r_col3 = recommendation_tab.columns([1,2,1])
 
@@ -215,9 +213,6 @@ recommendation_tab.title('Kitap Tavsiye Sistemi')
 # Kullanıcıdan girdi alma
 book_title = recommendation_tab.text_input("Kitap Başlığını Girin:")
 
- # 'Price' kolonunu da dahil et
-filtered_books = filtered_books[['Title', 'Author', 'Price', 'Main Genre', 'Sub Genre', 'URLs']]
-
 # Tavsiye butonu
 if recommendation_tab.button('Kitap Tavsiye Et'):
     if not book_title:
@@ -234,7 +229,6 @@ if recommendation_tab.button('Kitap Tavsiye Et'):
                 for index, row in similar_books.iterrows():
                     recommendation_tab.image(row['URLs'], caption=row['Title'])
                     recommendation_tab.write(f"Yazar: {row['Author']}")
-                    recommendation_tab.write(f"Fiyat: ₹{row['Price']}")
                     recommendation_tab.write(f"Tür: {row['Main Genre']} - Alt Tür: {row['Sub Genre']}")
                     recommendation_tab.write("---")
                 #recommendation_tab.write("Önerilen Kitaplar:")
