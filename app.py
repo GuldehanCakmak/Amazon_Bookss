@@ -70,35 +70,6 @@ col3.subheader("Günün Kitap Tavsiyesi")
 
 
 
-# Hava durumu verisini almak için OpenWeatherMap API'si
-def get_weather(api_key, city):
-    base_url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
-    response = requests.get(base_url)
-    data = response.json()
-    return data
-
-# Hava durumuna göre kitap önerileri
-def suggest_books_by_weather(weather_condition, book_format='text'):
-    recommendations = {
-        'Clear': {
-            'text': ['The Alchemist by Paulo Coelho', 'To Kill a Mockingbird by Harper Lee'],
-            'audio': ['Becoming by Michelle Obama (Audiobook)', 'Educated by Tara Westover (Audiobook)']
-        },
-        'Rain': {
-            'text': ['The Girl with the Dragon Tattoo by Stieg Larsson', 'Gone Girl by Gillian Flynn'],
-            'audio': ['The Silent Patient by Alex Michaelides (Audiobook)', 'Big Little Lies by Liane Moriarty (Audiobook)']
-        },
-        'Snow': {
-            'text': ['Harry Potter Series by J.K. Rowling', 'The Hobbit by J.R.R. Tolkien'],
-            'audio': ['A Game of Thrones by George R.R. Martin (Audiobook)', 'The Lion, the Witch and the Wardrobe by C.S. Lewis (Audiobook)']
-        },
-        'Clouds': {
-            'text': ['The Catcher in the Rye by J.D. Salinger', '1984 by George Orwell'],
-            'audio': ['The Great Gatsby by F. Scott Fitzgerald (Audiobook)', 'The Handmaid\'s Tale by Margaret Atwood (Audiobook)']
-        }
-    }
-    return recommendations.get(weather_condition, {'text': ['Pride and Prejudice by Jane Austen', 'Moby Dick by Herman Melville'],
-                                                   'audio': ['The Odyssey by Homer (Audiobook)', 'Jane Eyre by Charlotte Bronte (Audiobook)']}).get(book_format)
 
 # Streamlit uygulaması
 
