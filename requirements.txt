@@ -1,8 +1,8 @@
-pandas
-numpy
+pandas==1.4.3
+numpy==1.23.1 
 seaborn
 scikit-learn
-streamlit
+streamlit==1.15.0
 plotly
 yellowbrick
 fuzzywuzzy
